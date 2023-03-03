@@ -6,6 +6,8 @@ public class EnemyWave
 {
     public float timeout = 10f;
 
+    public Transform path; 
+
     [SerializeField]
-    private List<EnemyWaveItem> enemies;
+    public List<EnemyWaveItem> enemies;
 }
