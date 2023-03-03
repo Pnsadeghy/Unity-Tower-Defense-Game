@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Path
   - Block
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -45,4 +46,7 @@ TagManager:
     locked: 0
   - name: Path
     uniqueID: 2446641349
+    locked: 0
+  - name: Enemy
+    uniqueID: 1825654239
     locked: 0
