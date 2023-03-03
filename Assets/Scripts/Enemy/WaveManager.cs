@@ -13,12 +13,11 @@ public class WaveManager : MonoBehaviour
     private float _waveTimeout;
     private float _enemyTimeout;
     private float _enemyRemain;
-    private List<Vector3> PathPoints;
+    private List<Vector3> _pathPoints;
 
     private void Start()
     {
         _activeWave = -1;
-        Debug.Log("Waves: " + waves.Count);
         NextWave();
     }
 
@@ -28,24 +27,21 @@ public class WaveManager : MonoBehaviour
     }
     
     private void NextWave() {
-        int index = _activeWave + 1;
-        if (index >= waves.Count) {
+        _activeWave++;
+        if (_activeWave >= waves.Count) {
             Destroy(this);
             return;
         }
-        Debug.Log("Start wave: " + (index + 1));
-        _activeWave = index;
         _activeWaveEnemy = -1;
         _enemyRemain = 0;
         _enemyTimeout = 0;
         _waveTimeout = Time.time + waves[_activeWave].timeout;
-        _enemyTimeout = 0;
-        _enemyRemain = waves[_activeWave].enemies[_activeWaveEnemy].count;
 
-        PathPoints = new List<Vector3>();
-        foreach (Transform child in transform.GetComponentsInChildren<Transform>())
+        _pathPoints = new List<Vector3>();
+        foreach (Transform child in waves[_activeWave].path.GetComponentsInChildren<Transform>())
         {
-            PathPoints.Add(child.position);
+            if (child.Equals(waves[_activeWave].path.transform)) continue;
+            _pathPoints.Add(child.position);
         }
     }
 
@@ -72,11 +68,12 @@ public class WaveManager : MonoBehaviour
             _enemyRemain = waves[_activeWave].enemies[_activeWaveEnemy].count;
         }
 
-        Instantiate(
+        var enemy = Instantiate(
             waves[_activeWave].enemies[_activeWaveEnemy].enemy,
             waves[_activeWave].path.transform.GetChild(0).transform.position,
             Quaternion.identity,
             this.transform);
+        enemy.GetComponent<EnemyController>().setPoints(_pathPoints);
 
         _enemyTimeout = waves[_activeWave].enemies[_activeWaveEnemy].timeout + Time.time;
         _enemyRemain--;
