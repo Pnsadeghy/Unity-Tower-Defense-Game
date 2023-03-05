@@ -28,7 +28,8 @@ public class TowerController : MonoBehaviour
             if (_lastShot + timeout < Time.time)
             {
                 _lastShot = Time.time;
-                Instantiate(bullet, transform.position, _lookAt);
+                var _bullet = Instantiate(bullet, transform.position, _lookAt);
+                _bullet.GetComponent<BulletController>().SetTarget(_target.transform);
             }
         }
     }
