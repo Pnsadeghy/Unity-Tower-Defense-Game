@@ -34,17 +34,15 @@ public class TowerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnEnemyEnter(Collider2D other)
     {
-        if (!other.CompareTag("Enemy")) return;
         _enemies.Add(other.gameObject);
         if (_target == null)
             _target = other.gameObject;
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void OnEnemyExit(Collider2D other)
     {
-        if (!other.CompareTag("Enemy")) return;
         _enemies.Remove(other.gameObject);
         if (_target.Equals(other.gameObject)) {
             _target = GetNearEnemy();
