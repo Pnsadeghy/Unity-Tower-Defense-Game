@@ -7,6 +7,8 @@ TagManager:
   - Path
   - Block
   - Enemy
+  - Bullet
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -49,4 +51,10 @@ TagManager:
     locked: 0
   - name: Enemy
     uniqueID: 1825654239
+    locked: 0
+  - name: Tower
+    uniqueID: 4276142885
+    locked: 0
+  - name: Bullet
+    uniqueID: 616079139
     locked: 0

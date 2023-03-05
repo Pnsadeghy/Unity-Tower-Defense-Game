@@ -12,9 +12,16 @@ public class EnemyController : MonoBehaviour
 
     private int _currentPoint = 0;
     private List<Vector3> _points;
+    private Quaternion _lookAt;
+    private float _currentHealth;
 
     public void setPoints(List<Vector3> points) {
         this._points = points;
+    }
+
+    private void Start()
+    {
+        _currentHealth = health;
     }
 
     private void Update()
@@ -26,12 +33,16 @@ public class EnemyController : MonoBehaviour
                 return;
             }
 
-            Vector3 direction = _points[_currentPoint] - transform.position;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-            transform.rotation = rotation;
-
+            _lookAt = ValueHelper.LookAt(transform.position, _points[_currentPoint]);
         }
         transform.position = Vector3.MoveTowards(transform.position, _points[_currentPoint], speed * Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, _lookAt, 0.1f);
+    }
+
+    public void Hit(float damage)
+    {
+        _currentHealth -= damage;
+        if (_currentHealth <= 0)
+            Destroy(gameObject);
     }
 }
