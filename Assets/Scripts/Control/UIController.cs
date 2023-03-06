@@ -23,10 +23,12 @@ namespace Control
         public List<TowerController> towers;
         public Button towerButton;
         public TowerController chosenTower = null;
+        public Text timeSpeedText;
 
         private float _currentCoins;
         private float _waveSec;
         private List<TowerButtonController> buttons;
+        private int timeSpeed = 1;
 
         private void Start()
         {
@@ -90,6 +92,15 @@ namespace Control
             _currentCoins -= value;
             SetCoinText();
             return true;
+        }
+
+        public void UpdateSpeed()
+        {
+            var value = this.timeSpeed + 1;
+            if (value > 5)
+                value = 1;
+            Time.timeScale = timeSpeed = value;
+            timeSpeedText.text = value + "X";
         }
 
         private void SetCoinText()
