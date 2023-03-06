@@ -73,7 +73,7 @@ public class WaveManager : MonoBehaviour
             waves[_activeWave].path.transform.GetChild(0).transform.position,
             Quaternion.identity,
             this.transform);
-        enemy.GetComponent<EnemyController>().setPoints(_pathPoints);
+        enemy.GetComponentInChildren<EnemyController>().setPoints(_pathPoints);
 
         _enemyTimeout = waves[_activeWave].enemies[_activeWaveEnemy].timeout + Time.time;
         _enemyRemain--;
