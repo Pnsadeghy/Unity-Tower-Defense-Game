@@ -26,6 +26,23 @@ public class UIController : MonoBehaviour
         SetCoinText();
     }
 
+    private void Update()
+    {
+        var time = "00:00";
+        if (_waveSec > 0)
+        {
+            _waveSec -= Time.deltaTime;
+            if (_waveSec > 0)
+            {
+                var minutes = Mathf.FloorToInt(_waveSec / 60f);
+                var seconds = Mathf.FloorToInt(_waveSec % 60f);
+                
+                time = string.Format("{0:00}:{1:00}", minutes, seconds);
+            }
+        }
+        timeText.text = time;
+    }
+
     public void SetTimer(float sec)
     {
         _waveSec = sec;

@@ -36,6 +36,7 @@ public class WaveManager : MonoBehaviour
         _enemyRemain = 0;
         _enemyTimeout = 0;
         _waveTimeout = Time.time + waves[_activeWave].timeout;
+        UIController.Instance.SetTimer(waves[_activeWave].timeout);
 
         _pathPoints = new List<Vector3>();
         foreach (Transform child in waves[_activeWave].path.GetComponentsInChildren<Transform>())
@@ -59,14 +60,7 @@ public class WaveManager : MonoBehaviour
             if (_enemyTimeout > Time.time) return;
             _enemyTimeout = 0;
         }
-        if (_enemyRemain.Equals(0)) {
-            _activeWaveEnemy++;
-            if (_activeWaveEnemy == waves[_activeWave].enemies.Count) {
-                NextWave();
-                return;
-            }
-            _enemyRemain = waves[_activeWave].enemies[_activeWaveEnemy].count;
-        }
+        if (CheckRemain()) return;
 
         var enemy = Instantiate(
             waves[_activeWave].enemies[_activeWaveEnemy].enemy,
@@ -77,5 +71,23 @@ public class WaveManager : MonoBehaviour
 
         _enemyTimeout = waves[_activeWave].enemies[_activeWaveEnemy].timeout + Time.time;
         _enemyRemain--;
+        CheckRemain();
+    }
+
+    private bool CheckRemain()
+    {
+        if (_enemyRemain.Equals(0))
+        {
+            _activeWaveEnemy++;
+            if (_activeWaveEnemy == waves[_activeWave].enemies.Count)
+            {
+                NextWave();
+                return true;
+            }
+
+            _enemyRemain = waves[_activeWave].enemies[_activeWaveEnemy].count;
+        }
+
+        return false;
     }
 }
