@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class TowerPickerController : MonoBehaviour
 {
@@ -32,18 +33,32 @@ public class TowerPickerController : MonoBehaviour
 
     void Update()
     {
-        transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        
-        var colliders = Physics2D.OverlapCircleAll(transform.position, land / 2, blockLayer);
-        _landChild.color = colliders.Length.Equals(0) ? _landColor : new Color(1f, 0f, 0f, 0.5f);
-        _rangeChild.color = colliders.Length.Equals(0) ? _rangeColor : new Color(1f, 0f, 0f, 0.2f);
-
-        if (Input.GetMouseButtonDown(0))
+        if (EventSystem.current.IsPointerOverGameObject())
         {
-            if (colliders.Length.Equals(0))
+            _landChild.gameObject.SetActive(false);
+            _rangeChild.gameObject.SetActive(false);
+        }
+        else
+        {
+            _landChild.gameObject.SetActive(true);
+            _rangeChild.gameObject.SetActive(true);
+            transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        
+            var colliders = Physics2D.OverlapCircleAll(transform.position, land / 2, blockLayer);
+
+            var haveError = !colliders.Length.Equals(0) || !UIController.Instance.CheckCoin(7.5f);
+        
+            _landChild.color = !haveError ? _landColor : new Color(1f, 0f, 0f, 0.5f);
+            _rangeChild.color = !haveError ? _rangeColor : new Color(1f, 0f, 0f, 0.2f);
+
+            if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(prefab, transform.position, Quaternion.identity, this.transform.parent);
-            }
-        } 
+                if (!haveError)
+                {
+                    UIController.Instance.DecCoin(7.5f);
+                    Instantiate(prefab, transform.position, Quaternion.identity, this.transform.parent);
+                }
+            }    
+        }
     }
 }

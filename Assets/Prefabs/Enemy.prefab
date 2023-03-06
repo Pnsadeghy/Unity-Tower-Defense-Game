@@ -151,6 +151,7 @@ MonoBehaviour:
   speed: 1.5
   health: 3
   damage: 5
+  coin: 5
   enemyHealth: {fileID: 6345476495689547748}
 --- !u!1 &1775616054153854272
 GameObject:
