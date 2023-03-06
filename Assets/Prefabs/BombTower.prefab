@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5293604262660533209}
   - component: {fileID: 5293604262660533211}
   m_Layer: 8
-  m_Name: Tower
+  m_Name: BombTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,12 +131,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b5b1c8250f94514285dba6021015fba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bullet: {fileID: 6888951337617929009, guid: 600177dd9c684f5489e2fb557a0fb594, type: 3}
-  timeout: 1
-  cost: 7
-  land: 2
+  bullet: {fileID: 6888951337617929009, guid: 256829d3b3e59494ea0b67554d2a96d3, type: 3}
+  timeout: 2
+  cost: 20
+  land: 4
   range: 8
-  sprite: {fileID: -8138782370738992367, guid: a8d64ead73e5f6949afc7c197f092dfd, type: 3}
+  sprite: {fileID: 962806293248896454, guid: a8d64ead73e5f6949afc7c197f092dfd, type: 3}
 --- !u!61 &5293604262660533209
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 962806293248896454, guid: a8d64ead73e5f6949afc7c197f092dfd, type: 3}
-  m_Color: {r: 0.5947775, g: 0.5518868, b: 1, a: 1}
+  m_Color: {r: 0.46226418, g: 0.46226418, b: 0.46226418, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -286,7 +286,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -8138782370738992367, guid: a8d64ead73e5f6949afc7c197f092dfd, type: 3}
-  m_Color: {r: 0.9811321, g: 0.97939265, b: 0.19900322, a: 1}
+  m_Color: {r: 0.9339623, g: 0.6671358, b: 0.074893214, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -321,7 +321,7 @@ Transform:
   m_GameObject: {fileID: 5293604263766412665}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 5293604263158136338}
   m_Father: {fileID: 5293604262660533207}
@@ -413,7 +413,7 @@ Transform:
   m_GameObject: {fileID: 7107470303459793025}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_Children: []
   m_Father: {fileID: 5293604262660533207}
   m_RootOrder: 2

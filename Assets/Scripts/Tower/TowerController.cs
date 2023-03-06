@@ -7,6 +7,9 @@ public class TowerController : MonoBehaviour
     public GameObject bullet;
     public float timeout;
     public float cost;
+    public float land;
+    public float range;
+    public Sprite sprite;
     
     private List<GameObject> _enemies;
     private Transform _weapon;

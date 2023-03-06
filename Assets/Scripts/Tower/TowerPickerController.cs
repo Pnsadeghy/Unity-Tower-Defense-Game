@@ -8,8 +8,6 @@ using UnityEngine.EventSystems;
 public class TowerPickerController : MonoBehaviour
 {
     public GameObject prefab;
-    public float land;
-    public float range;
     public LayerMask blockLayer;
 
     private SpriteRenderer _landChild;
@@ -22,9 +20,6 @@ public class TowerPickerController : MonoBehaviour
         var landChild = transform.GetChild(0);
         var rangeChild = transform.GetChild(1);
 
-        landChild.localScale = new Vector3(land, land, 1);
-        rangeChild.localScale = new Vector3(range, range, 1);
-
         _landChild = landChild.GetComponent<SpriteRenderer>();
         _rangeChild = rangeChild.GetComponent<SpriteRenderer>();
 
@@ -34,20 +29,24 @@ public class TowerPickerController : MonoBehaviour
 
     void Update()
     {
-        if (EventSystem.current.IsPointerOverGameObject())
+        var tower = UIController.Instance.chosenTower;
+        if (tower == null || EventSystem.current.IsPointerOverGameObject())
         {
             _landChild.gameObject.SetActive(false);
             _rangeChild.gameObject.SetActive(false);
         }
         else
         {
+            _landChild.transform.localScale = new Vector3(tower.land, tower.land, 1);
+            _rangeChild.transform.localScale = new Vector3(tower.range, tower.range, 1);
+            
             _landChild.gameObject.SetActive(true);
             _rangeChild.gameObject.SetActive(true);
             transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         
-            var colliders = Physics2D.OverlapCircleAll(transform.position, land / 2, blockLayer);
+            var colliders = Physics2D.OverlapCircleAll(transform.position, tower.land / 2, blockLayer);
 
-            var haveError = !colliders.Length.Equals(0) || !UIController.Instance.CheckCoin(7.5f);
+            var haveError = !colliders.Length.Equals(0) || !UIController.Instance.CheckCoin(tower.cost);
         
             _landChild.color = !haveError ? _landColor : new Color(1f, 0f, 0f, 0.5f);
             _rangeChild.color = !haveError ? _rangeColor : new Color(1f, 0f, 0f, 0.2f);
@@ -56,9 +55,10 @@ public class TowerPickerController : MonoBehaviour
             {
                 if (!haveError)
                 {
-                    UIController.Instance.DecCoin(7.5f);
-                    Instantiate(prefab, transform.position, Quaternion.identity, this.transform.parent);
+                    UIController.Instance.DecCoin(tower.cost);
+                    Instantiate(tower.gameObject, transform.position, Quaternion.identity, transform.parent);
                 }
+                UIController.Instance.chosenTower = null;
             }    
         }
     }
