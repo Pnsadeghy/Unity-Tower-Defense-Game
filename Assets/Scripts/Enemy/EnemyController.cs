@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float speed = 5f;
     public float health = 5f;
     public float damage = 5f;
+    public int coin;
     public Transform enemyHealth;
 
     private int _currentPoint = 0;
@@ -50,6 +51,9 @@ public class EnemyController : MonoBehaviour
         scale.x = _currentHealth / health;
         enemyHealth.localScale = scale;
         if (_currentHealth <= 0)
+        {
+            UIController.Instance.AddCoin(this.coin);
             Destroy(transform.parent.gameObject);
+        }
     }
 }
