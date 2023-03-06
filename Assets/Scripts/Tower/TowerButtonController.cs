@@ -6,32 +6,35 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class TowerButtonController : MonoBehaviour
+namespace Tower
 {
-    public TowerController tower;
-
-    private Button _button;
-
-    private void Start()
+    public class TowerButtonController : MonoBehaviour
     {
-        TryGetComponent(out _button);
-    }
+        public TowerController tower;
 
-    public void OnClick()
-    {
-        if (UIController.Instance.chosenTower == tower)
+        private Button _button;
+
+        private void Start()
         {
-            UIController.Instance.chosenTower = null;   
+            TryGetComponent(out _button);
         }
-        else
+
+        public void OnClick()
         {
-            UIController.Instance.chosenTower = tower;
-            
+            if (UIController.Instance.chosenTower == tower)
+            {
+                UIController.Instance.chosenTower = null;
+            }
+            else
+            {
+                UIController.Instance.chosenTower = tower;
+
+            }
         }
-    }
-    
-    private void Update()
-    {
-        
+
+        private void Update()
+        {
+
+        }
     }
 }
