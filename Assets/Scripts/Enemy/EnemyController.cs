@@ -9,7 +9,7 @@ public class EnemyController : MonoBehaviour
     public float speed = 5f;
     public float health = 5f;
     public float damage = 5f;
-    public int coin;
+    public float coin;
     public Transform enemyHealth;
 
     private int _currentPoint = 0;

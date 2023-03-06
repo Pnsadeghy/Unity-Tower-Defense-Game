@@ -54,6 +54,16 @@ public class UIController : MonoBehaviour
         SetCoinText();
     }
 
+    public bool CheckCoin(float value) => _currentCoins >= value;
+
+    public bool DecCoin(float value)
+    {
+        if (_currentCoins < value) return false;
+        _currentCoins -= value;
+        SetCoinText();
+        return true;
+    }
+
     private void SetCoinText()
     {
         coinText.text = "$ " + _currentCoins;
