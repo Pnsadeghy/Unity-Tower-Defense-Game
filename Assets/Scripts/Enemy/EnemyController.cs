@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour
     public float speed = 5f;
     public float health = 5f;
     public float damage = 5f;
+    public Transform enemyHealth;
 
     private int _currentPoint = 0;
     private List<Vector3> _points;
@@ -26,23 +27,29 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (_currentPoint.Equals(-1) || transform.position.Equals(_points[_currentPoint])) {
+        var pos = transform.parent.position;
+        if (_currentPoint.Equals(-1) || pos.Equals(_points[_currentPoint])) {
             _currentPoint++;
             if (_currentPoint >= _points.Count) {
                 Destroy(gameObject);
                 return;
             }
 
-            _lookAt = ValueHelper.LookAt(transform.position, _points[_currentPoint]);
+            _lookAt = ValueHelper.LookAt(pos, _points[_currentPoint]);
+            
         }
-        transform.position = Vector3.MoveTowards(transform.position, _points[_currentPoint], speed * Time.deltaTime);
+        transform.parent.position = Vector3.MoveTowards(pos, _points[_currentPoint], speed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, _lookAt, 0.1f);
     }
 
     public void Hit(float damage)
     {
         _currentHealth -= damage;
+        enemyHealth.gameObject.SetActive(true);
+        var scale = enemyHealth.localScale;
+        scale.x = _currentHealth / health;
+        enemyHealth.localScale = scale;
         if (_currentHealth <= 0)
-            Destroy(gameObject);
+            Destroy(transform.parent.gameObject);
     }
 }
