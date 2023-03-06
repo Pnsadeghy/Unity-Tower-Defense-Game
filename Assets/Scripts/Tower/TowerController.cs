@@ -28,22 +28,21 @@ public class TowerController : MonoBehaviour
             if (_lastShot + timeout < Time.time)
             {
                 _lastShot = Time.time;
-                Instantiate(bullet, transform.position, _lookAt);
+                var _bullet = Instantiate(bullet, transform.position, _lookAt);
+                _bullet.GetComponent<BulletController>().SetTarget(_target.transform);
             }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    public void OnEnemyEnter(Collider2D other)
     {
-        if (!other.CompareTag("Enemy")) return;
         _enemies.Add(other.gameObject);
         if (_target == null)
             _target = other.gameObject;
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    public void OnEnemyExit(Collider2D other)
     {
-        if (!other.CompareTag("Enemy")) return;
         _enemies.Remove(other.gameObject);
         if (_target.Equals(other.gameObject)) {
             _target = GetNearEnemy();

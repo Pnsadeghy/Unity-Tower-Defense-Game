@@ -10,10 +10,20 @@ public class BulletController : MonoBehaviour
     public float range;
     
     private bool _isHit = false;
+    private Transform _target;
 
     private void Update()
     {
-        transform.position += transform.rotation * Vector3.up * speed * Time.deltaTime;
+        if (_target)
+        {
+            var lookAt = ValueHelper.LookAt(transform.position, _target.position);
+            transform.position = Vector3.MoveTowards(transform.position, _target.position, speed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookAt, 0.1f);
+        }
+        else
+        {
+            transform.position += transform.rotation * Vector3.up * speed * Time.deltaTime;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
@@ -31,5 +41,10 @@ public class BulletController : MonoBehaviour
             if (enemy.CompareTag("Enemy"))
                 enemy.GetComponent<EnemyController>().Hit(power);
         Destroy(gameObject);
+    }
+    
+    public void SetTarget(Transform target)
+    {
+        _target = target;
     }
 }
