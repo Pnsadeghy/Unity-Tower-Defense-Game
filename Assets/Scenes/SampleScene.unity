@@ -3848,6 +3848,22 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8854203508676232069, guid: b5567e0dfea888d4f9ba320ba519a14e, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854203508676232069, guid: b5567e0dfea888d4f9ba320ba519a14e, type: 3}
+      propertyPath: m_Color.g
+      value: 0.033018887
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854203508676232069, guid: b5567e0dfea888d4f9ba320ba519a14e, type: 3}
+      propertyPath: m_Color.b
+      value: 0.033018887
+      objectReference: {fileID: 0}
+    - target: {fileID: 8854203508676232069, guid: b5567e0dfea888d4f9ba320ba519a14e, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9152979439062392362, guid: b5567e0dfea888d4f9ba320ba519a14e, type: 3}
       propertyPath: coinText
       value: 

@@ -136,6 +136,7 @@ MonoBehaviour:
   cost: 20
   land: 4
   range: 8
+  sprite: {fileID: 962806293248896454, guid: a8d64ead73e5f6949afc7c197f092dfd, type: 3}
 --- !u!61 &5293604262660533209
 BoxCollider2D:
   m_ObjectHideFlags: 0

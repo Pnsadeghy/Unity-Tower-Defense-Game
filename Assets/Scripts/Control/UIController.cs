@@ -18,12 +18,30 @@ namespace Control
         public float coins;
         public Text coinText;
         public Text timeText;
+        public RectTransform buttonContainer;
+        public List<TowerController> towers;
+        public Button towerButton;
 
         private float _currentCoins;
         private float _waveSec;
 
         private void Start()
         {
+            buttonContainer.sizeDelta = new Vector2(towers.Count * 130, buttonContainer.sizeDelta.y);
+            buttonContainer.anchoredPosition = new Vector2(buttonContainer.sizeDelta.x / -2, 0);
+            var parent = buttonContainer.transform.parent.GetComponent<RectTransform>();
+            parent.sizeDelta = new Vector2(buttonContainer.sizeDelta.x + 220, parent.sizeDelta.y);
+
+            var pos = 0;
+            foreach (var tower in towers)
+            {
+                var button = Instantiate(towerButton, buttonContainer);
+                var buttonRect = button.GetComponent<RectTransform>();
+                buttonRect.anchoredPosition = new Vector2(-pos - 70, 0);
+                pos += 130;
+                button.transform.GetChild(0).GetComponent<Image>().sprite = tower.sprite;
+            }
+            
             _currentCoins = coins;
             SetCoinText();
         }
