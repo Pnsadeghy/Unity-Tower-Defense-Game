@@ -133,7 +133,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 6888951337617929009, guid: 600177dd9c684f5489e2fb557a0fb594, type: 3}
   timeout: 1
-  cost: 57
+  cost: 7
+  land: 2
+  range: 8
 --- !u!61 &5293604262660533209
 BoxCollider2D:
   m_ObjectHideFlags: 0

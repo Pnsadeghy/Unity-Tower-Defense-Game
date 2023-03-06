@@ -134,6 +134,8 @@ MonoBehaviour:
   bullet: {fileID: 6888951337617929009, guid: 256829d3b3e59494ea0b67554d2a96d3, type: 3}
   timeout: 2
   cost: 20
+  land: 4
+  range: 8
 --- !u!61 &5293604262660533209
 BoxCollider2D:
   m_ObjectHideFlags: 0
